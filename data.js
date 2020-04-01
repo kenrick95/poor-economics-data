@@ -6,6 +6,12 @@
  * https://web.archive.org/web/20190414224929/http://www.pooreconomics.com/data/country/home
  */
 export const DATA = {
+  livingOn: [
+    '$1 / day',
+    '$2 / day',
+    '$2-4 / day',
+    '$6-10 / day'
+  ],
   categories: [
     {
       cID: 0,

@@ -4,20 +4,7 @@ import { DATA } from './data.js';
 function main() {
   const ctx = document.getElementById('chart');
   const questionSelectEl = document.getElementById('question');
-
-  let state = {
-    selectedQuestionId: 0
-  };
-
-  function setState(newPartialState) {
-    state = {
-      ...state,
-      ...newPartialState
-    };
-    renderChart();
-  }
-  //   console.log('DATA', DATA);
-
+  const livingOnRadioEls = document.getElementsByClassName('livingon-radio');
   const chart = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -41,8 +28,20 @@ function main() {
     }
   });
 
+  let state = {
+    selectedQuestionId: 0,
+    selectedLivingOnGroupId: 0
+  };
+  function setState(newPartialState) {
+    state = {
+      ...state,
+      ...newPartialState
+    };
+    renderChart();
+  }
+
   function renderChart() {
-    const { selectedQuestionId } = state;
+    const { selectedQuestionId, selectedLivingOnGroupId } = state;
     const selectedQuestion = DATA.questions.find((question) => {
       return question.qID === selectedQuestionId;
     });
@@ -58,14 +57,17 @@ function main() {
     chart.data.datasets = [
       {
         label: 'Rural',
-        // TODO: Provide option to select other "Living on" group
-        data: answersForSelectedQuestion.map((answer) => answer.values[0][0]),
+        data: answersForSelectedQuestion.map(
+          (answer) => answer.values[selectedLivingOnGroupId][0]
+        ),
         borderWidth: 1,
         backgroundColor: '#ffcc99'
       },
       {
         label: 'Urban',
-        data: answersForSelectedQuestion.map((answer) => answer.values[0][1]),
+        data: answersForSelectedQuestion.map(
+          (answer) => answer.values[selectedLivingOnGroupId][1]
+        ),
         borderWidth: 1,
         backgroundColor: '#ff9900'
       }
@@ -73,7 +75,8 @@ function main() {
 
     chart.options.title.text = [
       selectedQuestion.title,
-      selectedQuestion.title2
+      selectedQuestion.title2,
+      `Living on ${DATA.livingOn[selectedLivingOnGroupId]}`
     ];
     chart.update();
   }
@@ -110,7 +113,24 @@ function main() {
       selectedQuestionId
     });
   }
+
+  function handleLivingOnInput(event) {
+    const selectedLivingOnGroupId = parseInt(event.target.value, 10);
+    setState({
+      selectedLivingOnGroupId
+    });
+  }
+
   questionSelectEl.addEventListener('change', handleQuestionSelect);
+  for (let i = 0; i < livingOnRadioEls.length; i++) {
+    const livingOnRadioEl = livingOnRadioEls[i];
+    livingOnRadioEl.addEventListener('input', handleLivingOnInput);
+    if (i === 0) {
+      livingOnRadioEl.checked = true;
+    } else {
+      livingOnRadioEl.checked = false;
+    }
+  }
 
   renderQuestions();
   renderChart(0);
