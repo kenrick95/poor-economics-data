@@ -19,14 +19,21 @@
         width: 100%;
       }
       #livingon {
+        margin-top: 1rem;
         padding: 0.5rem;
+      }
+      #livingon-radio-container {
         display: flex;
       }
-      .livingon-radio-container {
+      .livingon-radio-label {
         flex: 0 1 auto;
+        cursor: pointer;
       }
-      .livingon-radio-container + .livingon-radio-container {
+      .livingon-radio-label + .livingon-radio-label {
         margin-left: 1.5rem;
+      }
+      .livingon-radio {
+        cursor: pointer;
       }
       #chart {
         margin-top: 2rem;
@@ -34,11 +41,20 @@
       header,
       main,
       footer {
+        display: block;
+        width: 100%;
         max-width: 960px;
-        margin: 0 auto 1rem;
+        margin: 1rem auto;
       }
       footer {
         font-size: 12px;
+      }
+      #unsupported {
+        display: none;
+        color: #ff4136;
+        border: 1px solid currentColor;
+        padding: 0.6rem;
+        border-radius: 2px;
       }
     </style>
   </head>
@@ -47,25 +63,52 @@
       <h1>Poor Economics data</h1>
     </header>
     <main>
+      <div id="unsupported">
+        Sorry, this browser is unsupported
+      </div>
       <div id="controls">
         <select id="question"></select>
         <fieldset id="livingon">
           <legend>Living on</legend>
-
-          <label class="livingon-radio-container"
-            ><input class="livingon-radio" type="radio" name="livinggroup" value="0" /> $1 / day</label
-          >
-          <label class="livingon-radio-container"
-            ><input class="livingon-radio" type="radio" name="livinggroup" value="1" /> $2 / day</label
-          >
-          <label class="livingon-radio-container"
-            ><input class="livingon-radio" type="radio" name="livinggroup" value="2" /> $2-4 /
-            day</label
-          >
-          <label class="livingon-radio-container"
-            ><input class="livingon-radio" type="radio" name="livinggroup" value="3" /> $6-10 /
-            day</label
-          >
+          <div id="livingon-radio-label">
+            <!-- fieldset has issue being a flex container. See https://github.com/philipwalton/flexbugs#flexbug-9 -->
+            <label class="livingon-radio-label"
+              ><input
+                class="livingon-radio"
+                type="radio"
+                name="livinggroup"
+                value="0"
+              />
+              $1 / day</label
+            >
+            <label class="livingon-radio-label"
+              ><input
+                class="livingon-radio"
+                type="radio"
+                name="livinggroup"
+                value="1"
+              />
+              $2 / day</label
+            >
+            <label class="livingon-radio-label"
+              ><input
+                class="livingon-radio"
+                type="radio"
+                name="livinggroup"
+                value="2"
+              />
+              $2-4 / day</label
+            >
+            <label class="livingon-radio-label"
+              ><input
+                class="livingon-radio"
+                type="radio"
+                name="livinggroup"
+                value="3"
+              />
+              $6-10 / day</label
+            >
+          </div>
         </fieldset>
       </div>
       <canvas id="chart"></canvas>
@@ -84,5 +127,6 @@
       >.
     </footer>
     <script src="./main.js" type="module"></script>
+    <script src="./nomodule.js" nomodule></script>
   </body>
 </html>
