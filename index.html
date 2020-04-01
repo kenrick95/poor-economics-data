@@ -4,59 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Poor Economics Data</title>
-    <style>
-      * {
-        box-sizing: border-box;
-        padding: 0;
-        margin: 0;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-          Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      }
-      #controls {
-        width: 100%;
-      }
-      #question {
-        width: 100%;
-      }
-      #livingon {
-        margin-top: 1rem;
-        padding: 0.5rem;
-      }
-      #livingon-radio-container {
-        display: flex;
-      }
-      .livingon-radio-label {
-        flex: 0 1 auto;
-        cursor: pointer;
-      }
-      .livingon-radio-label + .livingon-radio-label {
-        margin-left: 1.5rem;
-      }
-      .livingon-radio {
-        cursor: pointer;
-      }
-      #chart {
-        margin-top: 2rem;
-      }
-      header,
-      main,
-      footer {
-        display: block;
-        width: 100%;
-        max-width: 960px;
-        margin: 1rem auto;
-      }
-      footer {
-        font-size: 12px;
-      }
-      #unsupported {
-        display: none;
-        color: #ff4136;
-        border: 1px solid currentColor;
-        padding: 0.6rem;
-        border-radius: 2px;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <header>
@@ -69,7 +17,7 @@
       <div id="controls">
         <select id="question"></select>
         <fieldset id="livingon">
-          <legend>Living on</legend>
+          <legend id="livingon-legend">Living on</legend>
           <div id="livingon-radio-label">
             <!-- fieldset has issue being a flex container. See https://github.com/philipwalton/flexbugs#flexbug-9 -->
             <label class="livingon-radio-label"
